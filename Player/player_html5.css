@@ -1,0 +1,134 @@
+* {
+  box-sizing:border-box;
+}
+
+.player {
+  width:500px;
+  line-height:0;
+}
+
+.message {
+  height:20px;
+  text-align:center;
+  font-family:Helvetica, Arial, sans-serif;
+}
+
+.controls {
+  background:#333;
+  display:flex;
+  border-radius:10px;
+  flex-direction:row;
+  justify-content:space-between;
+  align-items:center;
+  box-shadow:5px 5px 10px 0px #777;
+  padding:10px;
+}
+
+.button {
+  color:white;
+  text-align:center;
+  cursor:pointer;
+  background:transparent;  
+  border:none;
+  outline:none;
+  width:5%;
+}
+
+.play {
+  background:url('chrome-extension://__MSG_@@extension_id__/player/play.png') no-repeat scroll 0 0 transparent;
+  height:16px;
+  width:16px;
+}
+
+.pause {
+  background:url('chrome-extension://__MSG_@@extension_id__/player/pause.png') no-repeat scroll 0 0 transparent;
+  height:16px;
+  width:16px;
+}
+
+.volume-up {
+  background:url('chrome-extension://__MSG_@@extension_id__/player/volume-up.png') no-repeat scroll 0 0 transparent;
+  height:16px;
+  width:16px;
+  cursor:context-menu;
+}
+
+.track {
+  position:relative;
+  height:10px;
+  vertical-align:top;
+  background:#fff;
+  width:51%;
+  cursor:pointer;
+}
+
+.progress {
+  position:absolute;
+  width:0%;
+  height:100%;
+  background:#5CF;
+  border-radius:0px;
+}
+
+.scrubber {
+  position:absolute;
+  width:18px;
+  height:18px;
+  margin:-4px 0 0 -9px;
+  background:#5CF;
+  border:solid 3px #ddd;
+  cursor:pointer;
+  box-shadow:0 0 5px #000, inset 0 0 4px #400;
+}
+
+.count {
+  width:15%;
+  color:#FFF;
+}
+
+.divider {
+	margin:0 5px;
+}
+
+.volume {
+  width:15%;
+  cursor:pointer;
+}
+
+.overlay {
+	background-color:rgb(0, 0, 0);
+	opacity:0.7; /* Safari, Opera */
+	-moz-opacity:0.70; /* FireFox */
+	filter:alpha(opacity=70); /* IE */
+	z-index:20;
+	height:100%;
+	width:100%;
+	background-repeat:repeat;
+	position:fixed;
+	top:0px;
+	left:0px;
+}
+
+.overlayPlayer{
+  position:fixed;
+	top:50%;
+	left:50%;
+	margin-top:-100px;
+	margin-left:-200px;
+  opacity:1;
+  z-index:1002;
+}
+
+.playerDisplay p {
+	color:#FFF;
+	font-size:30px;
+}
+
+.initLoader {
+	position:absolute;
+	top:90%;
+	left:35%;
+	width:100px;
+}
+
+

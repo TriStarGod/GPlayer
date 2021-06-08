@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
   "name": "GPlayer",
-  "description": "Listen to Gmail's MP3s",
-  "version": "2.42",
+  "description": "Listen to Gmail's audio",
+  "version": "2.5",
   "icons": {
     "128": "icon.png",
     "16": "icon.png",

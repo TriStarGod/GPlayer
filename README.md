@@ -1,3 +1,3 @@
 # GPlayer
 
-Plays GMail MP3 attachments
+Plays GMail audio attachments

@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function (g) {
 				const request = new XMLHttpRequest();
 				request.open('GET', url, true);
 				request.responseType = 'arraybuffer';
-				request.onload = function () {
+				request.onload = () => {
 					let container;
 					let overlay;
 					let playerInstance;
@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", function (g) {
 						document.body.appendChild(container);
 						ldmsg.innerHTML = "Loading file";
 
-						const { readyState, status, response } = this;
+						const { readyState, status, response } = request; // or "this" if function
 						// console.log(`readyState: ${readyState} - status: ${status}`);
 						if (readyState === 4 && status === 200) {
 							ldmsg.innerHTML = "";
@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", function (g) {
 					} finally {
 						overlay.addEventListener("click", (e) => CompleteClose(e, playerInstance, container));
 					}
-				}
+				};
 				request.send();
 			}, false);
 		}

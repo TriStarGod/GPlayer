@@ -35,19 +35,19 @@
 }
 
 .play {
-  background:url('chrome-extension://__MSG_@@extension_id__/player/play.png') no-repeat scroll 0 0 transparent;
+  background:url('chrome-extension://__MSG_@@extension_id__/audioplayer/play.png') no-repeat scroll 0 0 transparent;
   height:16px;
   width:16px;
 }
 
 .pause {
-  background:url('chrome-extension://__MSG_@@extension_id__/player/pause.png') no-repeat scroll 0 0 transparent;
+  background:url('chrome-extension://__MSG_@@extension_id__/audioplayer/pause.png') no-repeat scroll 0 0 transparent;
   height:16px;
   width:16px;
 }
 
 .volume-up {
-  background:url('chrome-extension://__MSG_@@extension_id__/player/volume-up.png') no-repeat scroll 0 0 transparent;
+  background:url('chrome-extension://__MSG_@@extension_id__/audioplayer/volume-up.png') no-repeat scroll 0 0 transparent;
   height:16px;
   width:16px;
   cursor:context-menu;
@@ -130,5 +130,3 @@
 	left:35%;
 	width:100px;
 }
-
-

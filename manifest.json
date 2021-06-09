@@ -11,11 +11,11 @@
   "content_scripts": [
     {
       "js": [
-        "player/player_html5.js",
+        "audioplayer/audioplayer_html5.js",
         "main.js"
       ],
       "css": [
-        "player/player_html5.css"
+        "audioplayer/audioplayer_html5.css"
       ],
       "matches": [
         "https://mail.google.com/*",
@@ -30,8 +30,8 @@
     "https://mail-attachment.googleusercontent.com/*"
   ],
   "web_accessible_resources": [
-    "player/play.png",
-    "player/pause.png",
-    "player/volume-up.png"
+    "audioplayer/play.png",
+    "audioplayer/pause.png",
+    "audioplayer/volume-up.png"
   ]
 }

@@ -1,4 +1,4 @@
-function InsertPlayer(location) {
+function InsertAudioPlayer(location) {
 	const pC = document.createDocumentFragment();
 	const d0 = pC.appendChild(document.createElement("div"));
 	d0.classList.add("player");
@@ -21,7 +21,7 @@ function InsertPlayer(location) {
 	d3.appendChild(document.createElement("span")).classList.add("progressCount");
 	const s0 = d3.appendChild(document.createElement("span"));
 	s0.classList.add("divider");
-	s0.innerHTML = "|";
+	s0.innerHTML = "/";
 	d3.appendChild(document.createElement("span")).classList.add("totalCount");
 	const b0 = d1.appendChild(document.createElement("button"));
 	b0.disabled = true;
@@ -39,7 +39,7 @@ function InsertPlayer(location) {
 	return d0;
 }
 
-function Player(el, buffer, url) {
+function AudioPlayer(el, buffer, url) {
 	this.context = new (window.AudioContext || webkitAudioContext)();
 	this.el = el;
 	this.status = false;
@@ -63,7 +63,7 @@ function Player(el, buffer, url) {
 	}
 }
 
-Player.prototype.bindEvents = function () {
+AudioPlayer.prototype.bindEvents = function () {
 	this.button.addEventListener('click', this.toggle.bind(this));
 	//this.scrubber.addEventListener('mousedown', this.onMouseDown.bind(this));
 	this.volume.addEventListener('input', this.changeVolume.bind(this));
@@ -75,11 +75,11 @@ Player.prototype.bindEvents = function () {
 	this.track.addEventListener('mousedown', this.onPoint.bind(this));
 };
 
-Player.prototype.active = function () {
+AudioPlayer.prototype.active = function () {
 	return this.status;
 }
 
-Player.prototype.fetch = function () {
+AudioPlayer.prototype.fetch = function () {
 	const xhr = new XMLHttpRequest();
 	xhr.open('GET', this.url, true);
 	xhr.responseType = 'arraybuffer';
@@ -93,7 +93,7 @@ Player.prototype.fetch = function () {
 	xhr.send();
 };
 
-Player.prototype.decode = function (arrayBuffer) {
+AudioPlayer.prototype.decode = function (arrayBuffer) {
 	this.context.decodeAudioData(arrayBuffer, function (audioBuffer) {
 		this.message.innerHTML = '';
 		this.buffer = audioBuffer;
@@ -104,7 +104,7 @@ Player.prototype.decode = function (arrayBuffer) {
 
 };
 
-Player.prototype.connect = function () {
+AudioPlayer.prototype.connect = function () {
 	if (this.playing) {
 		this.pause();
 	}
@@ -118,7 +118,7 @@ Player.prototype.connect = function () {
 };
 
 
-Player.prototype.play = function (position) {
+AudioPlayer.prototype.play = function (position) {
 	if (this.message.innerHTML == '') {
 		this.connect();
 		this.position = typeof position === 'number' ? position : this.position || 0;
@@ -128,19 +128,19 @@ Player.prototype.play = function (position) {
 	}
 };
 
-Player.prototype.close = function () {
+AudioPlayer.prototype.close = function () {
 	this.stop();
 	if (this.animated)
 		cancelAnimationFrame(this.animated);
 };
 
-Player.prototype.stop = function () {
+AudioPlayer.prototype.stop = function () {
 	if (this.playing)
 		this.pause();
 
 };
 
-Player.prototype.pause = function () {
+AudioPlayer.prototype.pause = function () {
 	if (this.source) {
 		this.source.stop(0);
 		this.source = null;
@@ -149,7 +149,7 @@ Player.prototype.pause = function () {
 	}
 };
 
-Player.prototype.seek = function (time) {
+AudioPlayer.prototype.seek = function (time) {
 	if (this.playing) {
 		this.play(time);
 	}
@@ -158,7 +158,7 @@ Player.prototype.seek = function (time) {
 	}
 };
 
-Player.prototype.updatePosition = function () {
+AudioPlayer.prototype.updatePosition = function () {
 	this.position = this.playing ? this.context.currentTime - this.startTime : this.position;
 	if (this.position > this.buffer.duration) {
 		this.position = this.buffer.duration;
@@ -167,7 +167,7 @@ Player.prototype.updatePosition = function () {
 	return this.position;
 };
 
-Player.prototype.formatTime = function (totalSec) {
+AudioPlayer.prototype.formatTime = function (totalSec) {
 	//const hours = parseInt( totalSec / 3600 ) % 24;
 	//const minutes = parseInt( totalSec / 60 ) % 60;
 	const minutes = parseInt(totalSec / 60);
@@ -176,23 +176,23 @@ Player.prototype.formatTime = function (totalSec) {
 	return (minutes) + ":" + (seconds < 10 ? "0" + seconds : seconds);
 };
 
-Player.prototype.updateTime = function (progress, total) {
+AudioPlayer.prototype.updateTime = function (progress, total) {
 	this.progressCount.innerHTML = progress ? this.formatTime(progress | 0) : "0:00";
 	this.totalCount.innerHTML = total ? this.formatTime(total | 0) : "0:00";
 };
 
-Player.prototype.deltaVolume = function (e) {
+AudioPlayer.prototype.deltaVolume = function (e) {
 	const fraction = parseInt(e.value) / parseInt(e.max);
 	// x*x curve (x-squared) sounds better than x (linear)
 	if (this.gainNode)
 		this.gainNode.gain.value = fraction * fraction;
 };
 
-Player.prototype.changeVolume = function (e) {
+AudioPlayer.prototype.changeVolume = function (e) {
 	this.deltaVolume(e.srcElement);
 };
 
-Player.prototype.toggle = function () {
+AudioPlayer.prototype.toggle = function () {
 	this.playing ? this.pause() : this.play();
 	if (this.playing) {
 		this.button.classList.add('pause');
@@ -203,7 +203,7 @@ Player.prototype.toggle = function () {
 	}
 };
 
-Player.prototype.onMouseDown = function (e) {
+AudioPlayer.prototype.onMouseDown = function (e) {
 	// console.log("mousedown:" + e.pageX);
 	// console.log(this.progress.getBoundingClientRect());
 	this.dragging = true;
@@ -212,7 +212,7 @@ Player.prototype.onMouseDown = function (e) {
 	this.startLeft = parseInt(this.scrubber.style.left || 0, 10);
 };
 
-Player.prototype.onDrag = function (e) {
+AudioPlayer.prototype.onDrag = function (e) {
 	//console.log("drag:"+e.pageX);
 	if (!this.dragging) {
 		return;
@@ -223,7 +223,7 @@ Player.prototype.onDrag = function (e) {
 	this.scrubber.style.left = position + 'px';
 };
 
-Player.prototype.onPoint = function (e) {
+AudioPlayer.prototype.onPoint = function (e) {
 	let time;
 	const divDetails = this.track.getBoundingClientRect();
 	if (e.pageX < divDetails.right) {
@@ -240,7 +240,7 @@ Player.prototype.onPoint = function (e) {
 	this.seek(time);
 };
 
-Player.prototype.onMouseUp = function () {
+AudioPlayer.prototype.onMouseUp = function () {
 	if (this.dragging) {
 		const width = this.track.offsetWidth;
 		const left = parseInt(this.scrubber.style.left || 0, 10);
@@ -250,7 +250,7 @@ Player.prototype.onMouseUp = function () {
 	}
 };
 
-Player.prototype.draw = function () {
+AudioPlayer.prototype.draw = function () {
 	//if(this.playing)
 	//{
 	//console.log(this.el.parentNode.querySelectorAll(this.uniqueClass).length);

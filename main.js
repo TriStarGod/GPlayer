@@ -15,6 +15,14 @@ document.addEventListener("DOMContentLoaded", function (g) {
 		// container = null;
 	}
 
+	function IgnoreAction(event) {
+		const { target: {
+			className
+		} } = event;
+		if (className === "aSK J-J5-Ji aYr") return true;
+		if (className === "wtScjd J-J5-Ji aYr XG") return true;
+		return false;
+	}
 	// can play mp3s and wav
 	function DecodeAudio(files) {
 		if (files.length === 0) return;
@@ -25,6 +33,7 @@ document.addEventListener("DOMContentLoaded", function (g) {
 			let url = input.getAttribute("download_url");
 			url = url.substring(url.search(":http") + 1);
 			input.addEventListener('click', (e) => {
+				if (IgnoreAction(e)) return;
 				e.preventDefault();
 				e.stopPropagation();
 				// e.stopImmediatePropagation();
@@ -74,6 +83,7 @@ document.addEventListener("DOMContentLoaded", function (g) {
 			let url = input.getAttribute("download_url");
 			url = url.substring(url.search(":http") + 1);
 			input.addEventListener('click', (e) => {
+				if (IgnoreAction(e)) return;
 				e.preventDefault();
 				e.stopPropagation();
 				// e.stopImmediatePropagation();
@@ -184,13 +194,14 @@ document.addEventListener("DOMContentLoaded", function (g) {
 			let url = input.getAttribute("download_url");
 			url = url.substring(url.search(":http") + 1);
 			input.addEventListener('click', (e) => {
+				if (IgnoreAction(e)) return;
 				e.preventDefault();
 				e.stopPropagation();
 				// e.stopImmediatePropagation();
 				// e.stopPropagation ? e.stopPropagation() : (e.cancelBubble=true);
 				console.log("requesting data");
-				const nw = window.open();
-				nw.document.write(`<html><body><video controls="" width="250"><source src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.webm" type="video/webm"></video></body></html>`);
+				// const nw = window.open();
+				// nw.document.write(`<html><body><video controls="" width="250"><source src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.webm" type="video/webm"></video></body></html>`);
 
 				// const container = document.createDocumentFragment().appendChild(document.createElement("div"));
 				// container.classList.add("playerDisplay");
@@ -255,6 +266,7 @@ document.addEventListener("DOMContentLoaded", function (g) {
 	// 		let url = input.getAttribute("download_url");
 	// 		url = url.substring(url.search(":http") + 1);
 	// 		input.addEventListener('click', (e) => {
+	// if (IgnoreAction(e)) return;
 	// 			e.preventDefault();
 	// 			e.stopPropagation();
 	// 			// e.stopImmediatePropagation();
@@ -344,10 +356,14 @@ document.addEventListener("DOMContentLoaded", function (g) {
 		DecodeAudio(files);
 		files = document.querySelectorAll("*[download_url*='.WAV']:not(.hasPlayerFlag)");
 		DecodeAudio(files);
-		files = document.querySelectorAll("*[download_url*='.mp4']:not(.hasPlayerFlag)");
-		DecodeVideo1(files);
-		files = document.querySelectorAll("*[download_url*='.MP4']:not(.hasPlayerFlag)");
-		DecodeVideo1(files);
+		files = document.querySelectorAll("*[download_url*='.ogg']:not(.hasPlayerFlag)");
+		DecodeAudio(files);
+		files = document.querySelectorAll("*[download_url*='.OGG']:not(.hasPlayerFlag)");
+		DecodeAudio(files);
+		// files = document.querySelectorAll("*[download_url*='.mp4']:not(.hasPlayerFlag)");
+		// DecodeVideo1(files);
+		// files = document.querySelectorAll("*[download_url*='.MP4']:not(.hasPlayerFlag)");
+		// DecodeVideo1(files);
 	};
 
 	document.addEventListener("DOMNodeInserted", Activate.bind(this));

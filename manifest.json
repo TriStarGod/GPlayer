@@ -11,12 +11,12 @@
   "content_scripts": [
     {
       "js": [
-        "audioplayer_html5.js",
+        "audioplayer.js",
         "videocontext.js",
         "main.js"
       ],
       "css": [
-        "audioplayer_html5.css",
+        "audioplayer.css",
         "videoplayer.css"
       ],
       "matches": [

@@ -1,5 +1,5 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "GPlayer",
   "description": "Listen to Gmail's audio",
   "version": "2.50",
@@ -26,14 +26,22 @@
       "run_at": "document_start"
     }
   ],
-  "permissions": [
+  "host_permissions": [
     "http://mail.google.com/*",
     "https://mail.google.com/*",
     "https://mail-attachment.googleusercontent.com/*"
   ],
   "web_accessible_resources": [
-    "play.png",
-    "pause.png",
-    "volume-up.png"
+    {
+      "resources": [
+        "play.png",
+        "pause.png",
+        "volume-up.png"
+      ],
+      "matches": [
+        "https://mail.google.com/*",
+        "http://mail.google.com/*"
+      ]
+    }
   ]
 }

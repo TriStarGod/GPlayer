@@ -1,19 +1,19 @@
-* {
+.playerDisplay {
   box-sizing:border-box;
 }
 
-.player {
+.playerDisplay .player {
   width:500px;
   line-height:0;
 }
 
-.message {
+.playerDisplay .message {
   height:20px;
   text-align:center;
   font-family:Helvetica, Arial, sans-serif;
 }
 
-.controls {
+.playerDisplay .controls {
   background:#333;
   display:flex;
   border-radius:10px;
@@ -24,7 +24,7 @@
   padding:10px;
 }
 
-.button {
+.playerDisplay .button {
   color:white;
   text-align:center;
   cursor:pointer;
@@ -34,26 +34,26 @@
   width:5%;
 }
 
-.play {
-  background:url('chrome-extension://__MSG_@@extension_id__/audioplayer/play.png') no-repeat scroll 0 0 transparent;
+.playerDisplay .play {
+  background:url('chrome-extension://__MSG_@@extension_id__/play.png') no-repeat scroll 0 0 transparent;
   height:16px;
   width:16px;
 }
 
-.pause {
-  background:url('chrome-extension://__MSG_@@extension_id__/audioplayer/pause.png') no-repeat scroll 0 0 transparent;
+.playerDisplay .pause {
+  background:url('chrome-extension://__MSG_@@extension_id__/pause.png') no-repeat scroll 0 0 transparent;
   height:16px;
   width:16px;
 }
 
-.volume-up {
-  background:url('chrome-extension://__MSG_@@extension_id__/audioplayer/volume-up.png') no-repeat scroll 0 0 transparent;
+.playerDisplay .volume-up {
+  background:url('chrome-extension://__MSG_@@extension_id__/volume-up.png') no-repeat scroll 0 0 transparent;
   height:16px;
   width:16px;
   cursor:context-menu;
 }
 
-.track {
+.playerDisplay .track {
   position:relative;
   height:10px;
   vertical-align:top;
@@ -62,7 +62,7 @@
   cursor:pointer;
 }
 
-.progress {
+.playerDisplay .progress {
   position:absolute;
   width:0%;
   height:100%;
@@ -70,7 +70,7 @@
   border-radius:0px;
 }
 
-.scrubber {
+.playerDisplay .scrubber {
   position:absolute;
   width:18px;
   height:18px;
@@ -81,21 +81,21 @@
   box-shadow:0 0 5px #000, inset 0 0 4px #400;
 }
 
-.count {
+.playerDisplay .count {
   width:15%;
   color:#FFF;
 }
 
-.divider {
+.playerDisplay .divider {
 	margin:0 5px;
 }
 
-.volume {
+.playerDisplay .volume {
   width:15%;
   cursor:pointer;
 }
 
-.overlay {
+.playerDisplay .overlay {
 	background-color:rgb(0, 0, 0);
 	opacity:0.7; /* Safari, Opera */
 	-moz-opacity:0.70; /* FireFox */
@@ -109,7 +109,7 @@
 	left:0px;
 }
 
-.overlayPlayer{
+.playerDisplay .overlayPlayer{
   position:fixed;
 	top:50%;
 	left:50%;
@@ -124,7 +124,7 @@
 	font-size:30px;
 }
 
-.initLoader {
+.playerDisplay .initLoader {
 	position:absolute;
 	top:90%;
 	left:35%;

@@ -63,7 +63,9 @@ document.addEventListener("DOMContentLoaded", function (g) {
 			}, false);
 		}
 	}
-	function DecodeVideo(files) {
+
+	// decode mp4s
+	function DecodeVideo0(files) {
 		if (files.length === 0) return;
 		const slicedList = Array.prototype.slice.call(files);
 		for (let i = 0; i < slicedList.length; i++) {
@@ -79,8 +81,8 @@ document.addEventListener("DOMContentLoaded", function (g) {
 				console.log("requesting data");
 				const request = new XMLHttpRequest();
 				request.open('GET', url, true);
-				// request.responseType = 'blob';
-				request.responseType = 'arraybuffer';
+				request.responseType = 'blob';
+				// request.responseType = 'arraybuffer';
 				let playerInstance;
 				const container = document.createDocumentFragment().appendChild(document.createElement("div"));
 				container.classList.add("playerDisplay");
@@ -93,28 +95,73 @@ document.addEventListener("DOMContentLoaded", function (g) {
 				document.body.appendChild(container);
 				ldmsg.innerHTML = "Loading file";
 				overlay.addEventListener("click", (e) => CompleteClose(e, playerInstance, container));
-				request.onload = () => {
+				request.onload = async () => {
 					console.log("data loaded");
 					try {
 						const { readyState, status, response } = request; // or "this" if function
 						// console.log(`readyState: ${readyState} - status: ${status}`);
 						if (readyState === 4 && status === 200) {
 							ldmsg.innerHTML = "";
-							// const playerElement = InsertAudioPlayer(location);
+
+
+							// blob to text
 							const videoHtml = location.appendChild(document.createElement("video"));
 							videoHtml.classList.add("videoPlayer");
-							// videoHtml.src = URL.createObjectURL(response);
-							const mediaSource = new MediaSource();
-							videoHtml.src = URL.createObjectURL(mediaSource);
-							mediaSource.addEventListener("sourceopen", (e) => {
-								URL.revokeObjectURL(videoHtml.src);
-								const sourceBuffer = mediaSource.addSourceBuffer("video/mp4");
-								console.log("appending Buffer to sourceBuffer");
-								sourceBuffer.addEventListener("updateend", (e) => {
-									if (!sourceBuffer.updating && mediaSource.readyState === "open") mediaSource.endOfStream();
-								});
-								sourceBuffer.appendBuffer(response);
-							})
+							console.log({ response });
+							const reader = new FileReader();
+							reader.onload = (e) => {
+								// videoHtml.src = reader.result;
+								console.log({ bt: reader.result });
+							}
+							const blob = URL.createObjectURL(response);
+							reader.readAsText(response.slice(blob.size - 64, blob.size), "utf-8");
+
+							// // blob
+							// const videoHtml = location.appendChild(document.createElement("video"));
+							// videoHtml.classList.add("videoPlayer");
+							// console.log({ response });
+							// const reader = new FileReader();
+							// reader.onload = (e) => {
+							// 	videoHtml.src = reader.result;
+							// }
+							// reader.readAsDataURL(response);
+
+							//// video
+							// const videoCanvasHtml = location.appendChild(document.createElement("canvas"));
+							// videoCanvasHtml.classList.add("videoCanvasPlayer");
+							// const videoCtx = new VideoContext(videoCanvasHtml);
+							// const videoNode = videoCtx.video(response);
+							// videoNode.start(0);
+							// videoNode.stop(4);
+							// videoCtx.play();
+
+							// // blob
+							// const videoHtml = location.appendChild(document.createElement("video"));
+							// videoHtml.classList.add("videoPlayer");
+							// const blob = URL.createObjectURL(response);
+							// const blob2 = blob.slice(0, blob.size, "video/mp4");
+							// console.log({ response, bt: await blob.text(), bt2: await blob2.text() });
+							// videoHtml.src = blob2;
+
+							//// arrayBuffer
+							// const videoHtml = location.appendChild(document.createElement("video"));
+							// videoHtml.classList.add("videoPlayer");
+							// console.log({ response });
+							// const mediaSource = new MediaSource();
+							// videoHtml.src = URL.createObjectURL(mediaSource);
+							// mediaSource.addEventListener("sourceopen", (e) => {
+							// 	URL.revokeObjectURL(videoHtml.src);
+							// 	const sourceBuffer = mediaSource.addSourceBuffer("video/mp4");
+							// 	console.log("appending Buffer to sourceBuffer");
+							// 	sourceBuffer.addEventListener("updateend", (e) => {
+							// 		if (!sourceBuffer.updating && mediaSource.readyState === "open") {
+							// 			mediaSource.endOfStream();
+							// 			videoHtml.play();
+							// 		}
+							// 	});
+							// 	sourceBuffer.appendBuffer(response);
+							// });
+
 							// playerInstance = window.player = videoHtml.src = response;
 							// playerInstance = window.player = new AudioPlayer(playerElement, response);
 						}
@@ -127,7 +174,78 @@ document.addEventListener("DOMContentLoaded", function (g) {
 			}, false);
 		}
 	}
-	// // Custom WAV decoder - test - not working
+	// decode mp4s
+	function DecodeVideo1(files) {
+		if (files.length === 0) return;
+		const slicedList = Array.prototype.slice.call(files);
+		for (let i = 0; i < slicedList.length; i++) {
+			const input = slicedList[i];
+			input.classList.add("hasPlayerFlag");
+			let url = input.getAttribute("download_url");
+			url = url.substring(url.search(":http") + 1);
+			input.addEventListener('click', (e) => {
+				e.preventDefault();
+				e.stopPropagation();
+				// e.stopImmediatePropagation();
+				// e.stopPropagation ? e.stopPropagation() : (e.cancelBubble=true);
+				console.log("requesting data");
+				const nw = window.open();
+				nw.document.write(`<html><body><video controls="" width="250"><source src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.webm" type="video/webm"></video></body></html>`);
+
+				// const container = document.createDocumentFragment().appendChild(document.createElement("div"));
+				// container.classList.add("playerDisplay");
+				// const overlay = container.appendChild(document.createElement("div"));
+				// overlay.classList.add("overlay");
+				// const location = container.appendChild(document.createElement("div"));
+				// location.classList.add("overlayPlayer");
+				// const iframe = container.appendChild(document.createElement("iframe"));
+				// iframe.classList.add("iframePlayer");
+
+				// const ldmsg = location.appendChild(document.createElement("p"));
+				// ldmsg.classList.add("initLoader");
+				// document.body.appendChild(container);
+				// ldmsg.innerHTML = "Loading file";
+
+				// const iframedoc = iframe.contentWindow.document;
+				// iframedoc.open();
+				// iframedoc.write(`<html><body><video controls="" width="250"><source src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.webm" type="video/webm"></video></body></html>`);
+				// iframedoc.close();
+
+				// overlay.addEventListener("click", (e) => CompleteClose(e, playerInstance, container));
+
+
+				// request.onload = async () => {
+				// 	console.log("data loaded");
+				// 	try {
+				// 		const { readyState, status, response } = request; // or "this" if function
+				// 		// console.log(`readyState: ${readyState} - status: ${status}`);
+				// 		if (readyState === 4 && status === 200) {
+				// 			ldmsg.innerHTML = "";
+
+
+				// 			// blob to text
+				// 			const videoHtml = location.appendChild(document.createElement("video"));
+				// 			videoHtml.classList.add("videoPlayer");
+				// 			console.log({ response });
+				// 			const reader = new FileReader();
+				// 			reader.onload = (e) => {
+				// 				// videoHtml.src = reader.result;
+				// 				console.log({ bt: reader.result });
+				// 			}
+				// 			const blob = URL.createObjectURL(response);
+				// 			reader.readAsText(response.slice(blob.size - 64, blob.size), "utf-8");
+
+				// 		}
+				// 	} catch (error) {
+				// 		console.error("GPlayer failed to load file", error)
+				// 		ldmsg.innerHTML = "GPlayer failed to load file";
+				// 	}
+				// };
+				// request.send();
+			}, false);
+		}
+	}
+	// // Custom WAV decoder - testing - not working
 	// function CustomDecodeWAV(files) {
 	// 	if (files.length === 0) return;
 	// 	const slicedList = Array.prototype.slice.call(files);
@@ -227,7 +345,9 @@ document.addEventListener("DOMContentLoaded", function (g) {
 		files = document.querySelectorAll("*[download_url*='.WAV']:not(.hasPlayerFlag)");
 		DecodeAudio(files);
 		files = document.querySelectorAll("*[download_url*='.mp4']:not(.hasPlayerFlag)");
-		DecodeVideo(files);
+		DecodeVideo1(files);
+		files = document.querySelectorAll("*[download_url*='.MP4']:not(.hasPlayerFlag)");
+		DecodeVideo1(files);
 	};
 
 	document.addEventListener("DOMNodeInserted", Activate.bind(this));

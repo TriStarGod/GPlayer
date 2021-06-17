@@ -40,7 +40,8 @@ function InsertAudioPlayer(location) {
 }
 
 function AudioPlayer(el, buffer, url) {
-	this.context = new (window.AudioContext || webkitAudioContext)();
+	// console.log({ wac: window.AudioContext, wvc: window.VideoC });
+	this.context = new window.AudioContext();
 	this.el = el;
 	this.status = false;
 	this.button = el.querySelector('.button');

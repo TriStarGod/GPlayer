@@ -1,0 +1,27 @@
+{
+  "name": "gplayer",
+  "version": "2.5.1",
+  "description": "Plays audio and video attachments in GMail",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TriStarGod/GPlayer.git"
+  },
+  "keywords": [
+    "gmail",
+    "audio",
+    "video",
+    "player",
+    "gplayer"
+  ],
+  "author": "Me",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TriStarGod/GPlayer/issues"
+  },
+  "homepage": "https://github.com/TriStarGod/GPlayer#readme",
+  "dependencies": {}
+}

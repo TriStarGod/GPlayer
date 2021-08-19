@@ -38,7 +38,16 @@ function InsertAudioPlayer(location) {
 	location.appendChild(pC);
 	return d0;
 }
-
+const { createFFmpeg, fetchFile } = FFmpeg;
+const ffmpeg = createFFmpeg({
+	log: true,
+	corePath: chrome.runtime.getURL('node_modules/@ffmpeg/core/dist/ffmpeg-core.js'),
+});
+async function TranscodeAsync() {
+	if (!ffmpeg.isLoaded()) {
+		await ffmpeg.load();
+	}
+}
 function AudioPlayer(el, buffer, url) {
 	// console.log({ wac: window.AudioContext, wvc: window.VideoC });
 	this.context = new window.AudioContext();
@@ -101,8 +110,9 @@ AudioPlayer.prototype.decode = function (arrayBuffer) {
 		this.draw();
 		this.toggle();
 		this.status = true;
-	}.bind(this));
-
+	}.bind(this)).catch((error) => {
+		console.log(error);
+	});
 };
 
 AudioPlayer.prototype.connect = function () {

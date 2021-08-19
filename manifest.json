@@ -13,7 +13,8 @@
       "js": [
         "audioplayer.js",
         "videocontext.js",
-        "main.js"
+        "main.js",
+        "node_modules/@ffmpeg/core/dist/ffmpeg-core.js"
       ],
       "css": [
         "audioplayer.css",
@@ -36,7 +37,10 @@
       "resources": [
         "play.png",
         "pause.png",
-        "volume-up.png"
+        "volume-up.png",
+        "node_modules/@ffmpeg/core/dist/ffmpeg-core.js",
+        "node_modules/@ffmpeg/core/dist/ffmpeg-core.wasm",
+        "node_modules/@ffmpeg/core/dist/ffmpeg-core.worker.js"
       ],
       "matches": [
         "https://mail.google.com/*",

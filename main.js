@@ -41,6 +41,7 @@ document.addEventListener("DOMContentLoaded", function (g) {
 				const request = new XMLHttpRequest();
 				request.open('GET', url, true);
 				request.responseType = 'arraybuffer';
+				console.log("arraybuffer");
 				let playerInstance;
 				const container = document.createDocumentFragment().appendChild(document.createElement("div"));
 				container.classList.add("playerDisplay");
@@ -53,22 +54,28 @@ document.addEventListener("DOMContentLoaded", function (g) {
 				document.body.appendChild(container);
 				ldmsg.innerHTML = "Loading file";
 				overlay.addEventListener("click", (e) => CompleteClose(e, playerInstance, container));
+				console.log("request.onload before");
 				request.onload = () => {
 					try {
-
+						console.log("request.onload after");
 						const { readyState, status, response } = request; // or "this" if function
 						// console.log(`readyState: ${readyState} - status: ${status}`);
+						console.log("request.onload pre-status");
 						if (readyState === 4 && status === 200) {
+							console.log("request.onload status");
 							ldmsg.innerHTML = "";
 							const playerElement = InsertAudioPlayer(location);
+							console.log("request.onload playerElement");
 							playerInstance = window.player = new AudioPlayer(playerElement, response);
 						}
 					} catch (error) {
-						console.error("GPlayer failed to load file", error)
+						console.log("GPlayer failed to load file", error)
 						ldmsg.innerHTML = "GPlayer failed to load file";
 					}
 				};
+				console.log("request.send before");
 				request.send();
+				console.log("request.send after");
 			}, false);
 		}
 	}

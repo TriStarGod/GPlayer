@@ -23,5 +23,7 @@
     "url": "https://github.com/TriStarGod/GPlayer/issues"
   },
   "homepage": "https://github.com/TriStarGod/GPlayer#readme",
-  "dependencies": {}
+  "dependencies": {
+    "@ffmpeg/core": "^0.10.0"
+  }
 }
